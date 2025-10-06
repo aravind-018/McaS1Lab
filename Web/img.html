@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <script>
+               
+                   window.onload = function() {
+            
+            document.getElementById("abc").addEventListener("mouseover", img);
+            document.getElementById("abc").addEventListener("mouseleave", cont);
+        };
+                var d="<img id='abc' src='./logo.png' width='200px' height='200px'><h3 >this image</h3>"
+                function img(){
+                    document.getElementById("abc").innerHTML=d;
+                }
+                function cont(){
+                    document.getElementById("abc").innerHTML="hows the image";
+                }
+        </script>
+    </head>
+    <h1 id="abc">hello</h1>
+</html>

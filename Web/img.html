@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+window.onload = () => {
+    const abc = document.getElementById("abc");
+    const text = document.getElementById("textBox");
+    const img = document.getElementById("imgBox");
+
+    abc.onmouseover = () => {
+        text.style.display = "none";
+        img.style.display = "block";
+    };
+
+    abc.onmouseleave = () => {
+        img.style.display = "none";
+        text.style.display = "block";
+    };
+};
+</script>
+</head>
+
+<body>
+<div id="abc">
+    <div id="textBox">Place mouse pointer here</div>
+    <div id="imgBox">
+        <img src="logo.png" width="200" height="200">
+        <p>This is the image</p>
+    </div>
+</div>
+</body>
+</html>

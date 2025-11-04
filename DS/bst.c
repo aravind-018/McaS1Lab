@@ -1,7 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include <stdbool.h>
-
 struct node
     {
     int data;
@@ -25,6 +24,16 @@ struct node* insert(struct node *root,int v){
     }
     return root;
 }
+struct node* FindMin(struct node *root) {
+    if (root == NULL)
+        return NULL;
+
+    while (root->left != NULL)
+        root = root->left;
+
+    return root;
+}
+
 void inorder(struct node *root){
     struct node* temp=root;
    
@@ -64,9 +73,42 @@ bool search(struct node *root,int t){
     else
         search(temp->left,t);
 }
+    struct node* delete(struct  node* root, int del){
+            if(root==NULL)
+                return root;
+            else if(del<root->data){
+                root->left=delete(root->left,del);
+            }
+            else if(del>root->data){
+                root->right=delete(root->right,del);
+            }
+            else{
+                if(root->left==NULL && root->right==NULL){// case 1: no child
+                    free(root);
+                    root=NULL;
+                }
+                else if(root->left==NULL){//case 2: 1 children
+                    struct node* temp=root;
+                    root=root->right;
+                    free(temp);
+                }
+                else if(root->right==NULL){
+                    struct node* temp=root;
+                    root=root->left;
+                    free(temp);
+                }
+                else{//case 3: 2 children
+                    struct node *temp =FindMin(root->right);
+                    root->data=temp->data;
+                    root->right=delete(root->right,temp->data);
+
+                }
+            }
+         return root;
+        }
 int main(){
     struct node* root=NULL;
-    int ch ,value,target;
+    int ch ,value,target,dele;
     bool res;
     do{
     printf("\n1.insert\n2.display\n3.search\n4.deletion\n5.exit\nenter your choice");
@@ -99,8 +141,12 @@ int main(){
             printf("element not found");
         break;
         case 4:
-            
-
+        //delete
+       
+        printf("enter the value to delete:");
+        scanf("%d",&dele);
+        delete(root,dele);
+        printf("deleted successfully");
         break;
         case 5:
             printf("exited");
@@ -109,7 +155,7 @@ int main(){
             printf("invalid choice");
             break;
     }
-}while(ch!=4);
+}while(ch!=5);
 return 0;
 
 }
